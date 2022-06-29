@@ -1,0 +1,24 @@
+@import 'libs/bootstrap-reboot.min';
+@import 'libs/font';
+@import 'libs/slick';
+@import 'libs/animate';
+
+@import './base/_variables.scss';
+@import 'base/animations';
+*{
+    font-family: 'Museo Sans', sans-serif;
+}
+.container{
+    position: relative;
+    max-width: 950px;
+    margin: 0 auto;
+}
+
+
+@import 'blocks/buttons';
+@import 'blocks/titles';
+@import 'blocks/forms';
+@import 'blocks/catalog';
+@import 'blocks/modal';
+
+@import 'base/media'

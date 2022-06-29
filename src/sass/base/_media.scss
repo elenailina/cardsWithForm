@@ -1,0 +1,217 @@
+
+@media (max-width: 1200px){
+    .button {
+        &_submit {
+        width: 270px;
+        height: 50px;
+        font-size: 15px
+        }
+        &_mini {
+            width: 126px;
+            height: 38px;
+        }
+    }
+    .title{
+        font-size: 28px;
+    }
+    .feed-form {
+        input {
+            width: 270px;
+            height: 45px;
+        }
+    }
+    .catalog{
+        &__content {
+            justify-content: space-around;
+        }
+        &-item {
+            width: 275px;
+            &__price {
+                font-size: 18px;
+            }
+        }
+    }
+    .modal{
+        width: 363px;
+        padding: 35px 38px 38px 38px;
+    }
+}
+
+@media (max-width: 991px) {
+    .button {
+        width: 145px;
+        height: 29px;
+        font-size: 11px;
+        &_submit {
+            width: 252px;
+            height: 48px;
+            font-size: 14px;
+        }
+        &_mini {
+            width: 126px;
+            height: 38px;
+        }
+    }
+    .title {
+        font-size: 25px;
+    }
+    .feed-form {
+        input {
+            width: 252px;
+            height: 43px;
+            font-size: 13px;
+        }
+        .error{
+            font-size: 13px;
+        }
+        label.error {
+            font-size: 13px;
+        }
+    }
+    .catalog {
+        padding-bottom: 80px;
+        &__tab {
+            width: 180px;
+            height: 38px;
+            font-size: 14px;
+            line-height: 36px;
+        }
+        &__content {
+            justify-content: space-evenly;
+        }
+        &-item {
+            &__old-price {
+                font-size: 13px;
+            }
+            &__price {
+                font-size: 17px;
+            }
+        }
+    }
+    .modal{
+        width: 316px;
+        max-height: 368px;
+        padding: 30px 30px 30px 30px;
+        &__subtitle {
+            font-size: 16px;
+        }
+        &__descr {
+            font-size: 12px;
+        }
+    }
+}
+
+@media (max-width: 767px) {
+    .button {
+        width: 135px;
+        height: 27px;
+        font-size: 10px;
+        &_submit {
+            width: 195px;
+            height: 40px;
+            font-size: 12px;
+        }
+        &_mini {
+            width: 102px;
+            height: 34px;
+        }
+    }
+    .title {
+        font-size: 22px;
+    }
+    .feed-form {
+        input {
+            width: 195px;
+            height: 35px;
+            font-size: 11px
+        }
+        .error{
+            font-size: 11px;
+        }
+        label.error {
+            font-size: 11px;
+        }
+    }
+    .catalog {
+        &-item {
+            width: 225px;
+            min-height: 350px;
+            padding: 20px 15px 26px 15px;
+            &__img {
+                max-height: 188px;
+            }
+            hr {
+                margin-top: 0px;
+            }
+            &__old-price {
+                font-size: 12px;
+            }
+            &__price {
+                font-size: 15px;
+            }
+        }
+    }
+    .modal{
+        width: 249px;
+        min-height: 310px;
+        padding: 20px 20px 20px 27px;
+        &__subtitle {
+            font-size: 12px;
+        }
+        &__descr {
+            font-size: 10px;
+        }
+        &_mini {
+            min-height: 100px;
+        }
+    }
+}
+
+@media (max-width: 575px) {
+    .button {
+        &_submit {
+            font-size: 11px;
+        }
+        &_mini {
+            width: 100px;
+        }
+    }
+    .title {
+        font-size: 20px;
+    }
+    .feed-form {
+        display: flex;
+        align-items: center;
+        margin-top: 33px;
+    }
+    .catalog {
+        padding-bottom: 40px;
+        &__content {
+            margin-top: 37px;
+        }
+    }
+    .modal{
+        width: 240px;
+        min-height: 295px;
+        padding: 19px 20px 20px 23px;
+        &__close {
+            right: -29px;
+            font-size: 30px;
+        }
+        &__subtitle {
+            font-size: 11px;
+        }
+        &__descr {
+            font-size: 10px;
+        }
+        &_mini {
+            min-height: 100px;
+        }
+        .feed-form {
+        &_mt25 {
+            margin-top: 20px;
+            width: 196px;
+        }
+        }
+    }
+}
