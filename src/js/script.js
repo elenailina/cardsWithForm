@@ -1,76 +1,43 @@
+/* jshint esversion: 8 */ 
 window.addEventListener('DOMContentLoaded', () => {
+
     //Modal
 
     const modalTrigger = document.querySelectorAll('[data-modal]'),
-          overlay =document.querySelector('.overlay'),
-          thanks = document.querySelector('#thanks'),
           modal = document.querySelector('#order'),
-          closeModalBtn = document.querySelector('[data-close]'),
-          submit = document.querySelector('.button_submit'),
-          subtitle = document.querySelectorAll('.catalog-item__subtitle'),
-          chosenProduct = document.querySelector('[data-choice]');
+          modalClose = document.querySelector('[data-close]'),
+          overlay =document.querySelector('.overlay'),
+          chosenProduct = document.querySelector('[data-choice]'),
+          title = document.querySelectorAll('.catalog-item__subtitle'),
+          modalInput = document.querySelectorAll('.modal__input');
 
-    modalTrigger.forEach((btn, index) => { 
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            const productChosen = subtitle;
-            let name;
-
-            for(let i = 0; i < productChosen.length; i++){
-                if( i === index){
-                    name = productChosen[i].innerHTML;
-                }
-            }
-            
-            chosenProduct.value = name;
-            modal.style.display = 'block';
-            overlay.style.display = 'block';
-            document.body.style.overflow = 'hidden';
-        });
+    modalInput.forEach(input => {
+        input.required = true;
     });
 
-
-
-
-    // function processEvent(event) {
-    //     var dataset = event.target.dataset;
-      
-    //     modal.style.display = 'block';
-    //     overlay.style.display = 'block';
-    //     document.body.style.overflow = 'hidden';
-
-    //     input.value = subtitle[dataset];
-      
-    //     event.preventDefault();
-    //     console.log(input.value);
-    //   }
-
-    // for (let i = 0; i < modalTrigger.length; i++) {
-    //     modalTrigger[i].addEventListener('click', processEvent);
-    //   }
-
-    function thank() {
-        thanks.style.display = 'block';
+    function openModal() {
+        modal.style.display = 'block';
         overlay.style.display = 'block';
         document.body.style.overflow = 'hidden';
-        closeModalBtn.addEventListener('click', closeModal);
-        setTimeout(closeModal, 2000);
+        clearInterval(modalTimerId);
     }
-
-    submit.addEventListener('click', () => {
-        validateForms('#modal form');
-        closeModal();
-        thank();
-
-    });
 
     function closeModal() {
         modal.style.display = 'none';
-        thanks.style.display = 'none';
         overlay.style.display = 'none';
         document.body.style.overflow = '';
     }
-    closeModalBtn.addEventListener('click', closeModal);
+
+    modalTrigger.forEach((btn, i) => { 
+        btn.addEventListener('click', () => {
+            const findSame = Array.from(title).find((el, index) => index === i); // находит сам заголовок по индексу
+
+            chosenProduct.value = findSame.textContent;
+            openModal();
+        });
+    });
+
+    modalClose.addEventListener('click', closeModal);
 
     overlay.addEventListener('click', (e) => {
         if (e.target === overlay) {
@@ -84,58 +51,96 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     });
     
-        function validateForms(form){
-            $(form).validate({
-                rules: {
-                    name: "required",
-                    phone: "required",
-                    email: {
-                        required: true,
-                        email: true
+    const modalTimerId = setTimeout(openModal, 10000);
+
+    $('input[name=phone]').mask("+7 (999) 999-99-99");
+
+    //Form
+
+    const form = document.querySelector('form');
+    const message = {
+        loading: 'img/spinner.png'
+    };
+
+    function postData(form) {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            let statusMessage = document.createElement('img');
+            statusMessage.src = message.loading;
+            statusMessage.style.cssText = `
+                display: block;
+                margin: 0 auto;
+            `;
+            form.appendChild(statusMessage);
+
+            const request = new XMLHttpRequest();
+
+            //Отправка данный в php
+            request.open('POST', 'server.php');
+            const formData = new FormData(form);
+
+            request.send(formData);
+
+            //Отправка данный в JSON
+            // request.open('POST', 'server.php');
+            // request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+            // const formData = new FormData(form);
+
+            // const obj ={};
+            // formData(function(value, key){ // это доработать
+            //     obj[key] = value;
+            // });
+
+            // const json = JSON.stringify(obj);
+
+            // request.send(json);
+
+            request.addEventListener('load', () => {
+                if(request.status === 200){
+                    if(form.input === ''){
+                        
+                        const message = 'Заполните поле';
+                        form.input.append(message);
+                        console.log(message);
+                    } else {
+                        showThanksModal(); 
+                        form.reset();
+                        statusMessage.remove();
                     }
-                },
-                messages: {
-                    name: "Пожалуйста, введите свое имя",
-                    phone: "Пожалуйста, введите свой телефон",
-                    email: {
-                      required: "Пожалуйста, введите свою почту",
-                      email: "Неправильно введен адрес почты"
-                    }
+                    
+                } else {
+                    showFailureModal(); 
                 }
             });
-        }
-    
+        });
+    }
+    postData(form);
+
+    function showThanksModal(){
+
+        modal.style.display = 'none';
+        const thanksModal = document.querySelector('#thanks');
+        thanksModal.style.display = 'block';
         
+        document.querySelector('.overlay').append(thanksModal);
+        setTimeout(() => {
+            thanksModal.style.display = 'none';
+            closeModal();
+        }, 4000);
+    }
+
+    function showFailureModal(){
+
+        modal.style.display = 'none';
+        const failureModal = document.querySelector('#failure');
+        failureModal.style.display = 'block';
         
-        $('input[name=phone]').mask("+7 (999) 999-99-99");
-    
-        $('form').submit(function(e) {
-            e.preventDefault();
-            $.ajax({
-                type: "POST",
-                url: "mailer/smart.php",
-                data: $(this).serialize()
-            }).done(function(){
-                $(this).find("input").val("");
-                $('#modal').fadeOut();
-                $('.overlay, #thanks').fadeIn ();
-                $('form').trigger('reset');
-            });
-            return false;
-        });
-    
-        $(window).scroll(function(){
-            if($(this).scrollTop() > 1600) {
-                $('.pageup').fadeIn();
-            }else {
-                $('.pageup').fadeOut();
-            }
-        });
-    
-        $("a[href=#up]").click(function(){
-            const _href = $(this).attr("href");
-            $("html, body").animate({scrollTop: $(_href).offset().top+"px"});
-            return false;
-        });
-    
+        document.querySelector('.overlay').append(failureModal);
+        setTimeout(() => {
+            failureModal.style.display = 'none';
+            closeModal();
+        }, 4000);
+    }
+
 });

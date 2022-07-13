@@ -21,7 +21,10 @@
         &:hover {
             box-shadow: 3px 3px 20px #fff;
             border:none;
-        }    
+        } 
+        .error {
+            box-shadow: 0 0 15px blue;
+        }   
     }
     &_mt25 {
         margin-top: 25px;
