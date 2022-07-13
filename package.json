@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "gulpfile.js",
+  "homepage": "https://elenailina.github.io/cards_with_form/",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "gh-pages -d dist",
     "preinstall": "npx npm-force-resolutions"
   },
   "author": "",
@@ -12,18 +13,15 @@
   "devDependencies": {
     "browser-sync": "^2.27.5",
     "browserslist": "^4.16.7",
+    "gh-pages": "^3.2.3",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^6.1.0",
     "gulp-clean-css": "^4.3.0",
     "gulp-cli": "^2.3.0",
-    "gulp-htmlmin": "^5.0.1",
     "gulp-imagemin": "^4.1.0",
     "gulp-rename": "^2.0.0",
     "gulp-sass": "^5.0.0",
     "sass": "^1.37.5"
-  },
-  "dependencies": {
-    "tiny-slider": "^2.9.3"
   },
   "resolutions": {
     "graceful-fs": "^4.2.9"

@@ -77,25 +77,11 @@ window.addEventListener('DOMContentLoaded', () => {
 
             const request = new XMLHttpRequest();
 
-            //Отправка данный в php
             request.open('POST', 'server.php');
             const formData = new FormData(form);
 
             request.send(formData);
 
-            //Отправка данный в JSON
-            // request.open('POST', 'server.php');
-            // request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-            // const formData = new FormData(form);
-
-            // const obj ={};
-            // formData(function(value, key){ // это доработать
-            //     obj[key] = value;
-            // });
-
-            // const json = JSON.stringify(obj);
-
-            // request.send(json);
 
             request.addEventListener('load', () => {
                 if(request.status === 200){
@@ -107,11 +93,11 @@ window.addEventListener('DOMContentLoaded', () => {
                     } else {
                         showThanksModal(); 
                         form.reset();
-                        statusMessage.remove();
                     }
                     
                 } else {
                     showFailureModal(); 
+                    form.reset();
                 }
             });
         });
