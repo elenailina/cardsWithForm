@@ -4,14 +4,15 @@
   "description": "",
   "main": "gulpfile.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "preinstall": "npx npm-force-resolutions"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "browser-sync": "^2.27.5",
     "browserslist": "^4.16.7",
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.2",
     "gulp-autoprefixer": "^6.1.0",
     "gulp-clean-css": "^4.3.0",
     "gulp-cli": "^2.3.0",
@@ -23,5 +24,8 @@
   },
   "dependencies": {
     "tiny-slider": "^2.9.3"
+  },
+  "resolutions": {
+    "graceful-fs": "^4.2.9"
   }
 }
