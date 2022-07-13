@@ -93,6 +93,9 @@ window.addEventListener('DOMContentLoaded', () => {
                         showThanksModal(); 
                         form.reset();
                         statusMessage.remove();
+                        statusMessage.style.cssText = `
+                            display: none;
+                        `;
                     }
                     
                 } else {
